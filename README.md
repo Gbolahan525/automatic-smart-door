@@ -16,7 +16,8 @@ Standard doors require manual operation, which isn't ideal for hands-free or acc
 - **Servo motor (via the `Servo` library)** was used to physically pull/push the door open and shut, controlled directly from the Arduino based on the distance readings.
 - **16x2 LCD display** was added to show live door status ("DOOR OPENED" / "DOOR CLOSED"), making it easy to demonstrate that the sensor and logic were working correctly in real time.
 - **LED indicator** turns on whenever the door is open and turns off once it closes, giving a quick visual status check without needing to read the LCD.
-- Core logic: continuously ping the ultrasonic sensor for distance; if distance is below 15cm, open the servo to 90°, light the LED, and display "DOOR OPENED" on the LCD for a hold period; once distance is back at or above 15cm, return the servo to 0°, turn off the LED, and display "DOOR CLOSED." on the LCD
+- **Core logic:** continuously ping the ultrasonic sensor for distance; if distance is below 15 cm, open the servo to 90°, light the LED, and display "DOOR OPENED" on the LCD for a hold period; once distance is back at or above 15 cm, return the servo to 0°, turn off the LED, and display "DOOR CLOSED" on the LCD.
+- **Trigger distance:** 15 cm suits the small cardboard prototype; a full-size door would need a longer range of around 100 cm.
 
 ## What Went Wrong and How I Fixed It
 
@@ -24,10 +25,10 @@ On initial power-up, the servo would jump open by itself and only then move to i
 
 **Fix:** Added `myServo.write(0)` at the start of `setup()` to explicitly set the servo to a known closed angle (0°) immediately on power-up, before the main loop begins. This eliminated the erratic startup behavior entirely.
 
-## Quantified Results
+## Results
 
-- Reliable detection range: person triggers the door within **15 cm** of the sensor.
-- Servo startup behavior: fixed from unpredictable jump to a clean, consistent closed position on every power cycle.
+- The door opens when a person comes within the 15 cm trigger distance and closes once they move away.
+- Servo startup behavior: fixed from an unpredictable jump to a clean, consistent closed position on every power cycle.
 
 ## Hardware Used
 
@@ -41,9 +42,8 @@ On initial power-up, the servo would jump open by itself and only then move to i
 - Jumper wires
 
 ## Pin Configuration
-## Pin Configuration
 
-| Component        | Pin |
+| Component         | Pin |
 |-------------------|-----|
 | Ultrasonic Trig   | 5   |
 | Ultrasonic Echo   | 3   |
@@ -62,10 +62,10 @@ On initial power-up, the servo would jump open by itself and only then move to i
 2. Open `AUTOMATIC_SMART_DOOR.ino` in the Arduino IDE.
 3. Select "Arduino Uno" as the board and the correct port under Tools.
 4. Upload the sketch.
-5. Approach the sensor within ~15cm to see the door open (LED on, LCD reads "DOOR OPENED"); step away to see it close (LED off, LCD reads "DOOR CLOSED").
+5. Approach the sensor within ~15 cm to see the door open (LED on, LCD reads "DOOR OPENED"); step away to see it close (LED off, LCD reads "DOOR CLOSED").
 
-## Wiring
+## Wiring and Prototype Photos
 
-<img src="images/wiring-overview.jpg" width="250"> <img src="images/wiring-closeup.jpg" width="250"> 
+<img src="images/wiring-overview.jpg" width="250"> <img src="images/wiring-closeup.jpg" width="250">
 
 <img src="images/door-frame-front.jpg" width="250"> <img src="images/door-frame-back.jpg" width="250">
